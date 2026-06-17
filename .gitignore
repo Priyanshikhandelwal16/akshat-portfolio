@@ -1,0 +1,17 @@
+client/public/assets/videos/
+*.mp4
+*.mov
+
+node_modules/
+server/node_modules/
+client/node_modules/
+
+server/temp/
+temp/
+
+.env
+server/.env
+client/.env
+
+dist/
+client/dist/

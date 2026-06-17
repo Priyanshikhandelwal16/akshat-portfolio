@@ -1,0 +1,756 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #141414;
+  --accent: #FFB800;
+  --accent-secondary: #FF6B35;
+  --text-primary: #FFFFFF;
+  --text-muted: #A8A8A8;
+  --container-width: 1400px;
+}
+
+/* Base Styles Override */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  scrollbar-gutter: stable;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Force custom cursor style on non-touch devices */
+@media (min-width: 1025px) {
+  body.custom-cursor-active,
+  body.custom-cursor-active *,
+  body.custom-cursor-active *::before,
+  body.custom-cursor-active *::after {
+    cursor: none !important;
+  }
+}
+
+
+body.lock-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* --- NOISE & SCRATCH OVERLAYS --- */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.scratches-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  opacity: 0.05;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scratches-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 100px);
+  animation: scratch-move 12s steps(6) infinite;
+}
+
+@keyframes scratch-move {
+  0% { transform: translateX(-50%) scaleX(1); }
+  50% { transform: translateX(20%) scaleX(1.5); }
+  100% { transform: translateX(-30%) scaleX(0.8); }
+}
+
+/* --- DRAGGING SLIDER STATE --- */
+body.dragging-slider {
+  user-select: none;
+}
+
+/* --- CURSOR HOVERS --- */
+body.hovering-button .cursor-ring {
+  width: 70px;
+  height: 35px;
+  border-radius: 20px;
+  border-color: var(--accent);
+  background-color: rgba(255, 184, 0, 0.05);
+}
+
+body.hovering-video .cursor-ring {
+  width: 80px;
+  height: 80px;
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+body.hovering-video .cursor-ring .cursor-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body.hovering-video .cursor-dot {
+  opacity: 0;
+}
+
+/* --- LOADER STYLING --- */
+.loader-panel {
+  will-change: transform;
+}
+
+/* --- MOBILE NAVIGATION --- */
+.mobile-menu-overlay {
+  clip-path: circle(0px at 100% 0%);
+  transition: clip-path 0.7s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+.mobile-menu-overlay.active {
+  clip-path: circle(2000px at 100% 0%);
+}
+
+/* --- ABOUT STORY LINE MASKS --- */
+.about-portrait-mask {
+  transform-origin: top;
+  will-change: transform;
+}
+
+.about-portrait {
+  will-change: transform;
+}
+
+/* --- COLOR GRADING SLIDER HANDLES --- */
+.grading-slider-container {
+  aspect-ratio: 16/9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  will-change: transform, opacity;
+}
+
+.image-before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image-before img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.6) contrast(0.9) brightness(1.1); /* RAW LOG LOOK */
+}
+
+.image-after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: width;
+}
+
+.image-after img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: var(--accent);
+  z-index: 3;
+  transform: translateX(-50%);
+  cursor: ew-resize !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  will-change: left;
+}
+
+.handle-line {
+  flex-grow: 1;
+  width: 1px;
+  background-color: rgba(255, 184, 0, 0.6);
+}
+
+.handle-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 10px;
+  box-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
+  user-select: none;
+}
+
+.label-badge {
+  position: absolute;
+  top: 25px;
+  font-family: 'Syncopate', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 4;
+}
+
+.badge-before {
+  right: 25px;
+  color: var(--text-muted);
+}
+
+.badge-after {
+  left: 25px;
+  color: var(--accent);
+}
+
+/* --- VIDEO PROJECT CARDS --- */
+.video-project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), 
+              border-color 0.4s ease, 
+              box-shadow 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  aspect-ratio: 16/9;
+  will-change: transform, border-color, box-shadow;
+}
+
+.video-project-card.aspect-vertical {
+  aspect-ratio: 9/16 !important;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.video-project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 184, 0, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 184, 0, 0.05);
+}
+
+.project-card-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.video-project-card:hover .project-card-video {
+  transform: scale(1.05);
+}
+
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 6, 6, 0.85) 0%, rgba(6, 6, 6, 0.2) 60%, transparent 100%);
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.video-project-card:hover .project-card-overlay {
+  opacity: 1;
+}
+
+.project-card-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(20px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.project-card-tag {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* Vertical UGC frame notch */
+.phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 16px;
+  background-color: #000;
+  border-radius: 10px;
+  z-index: 3;
+}
+
+/* Lenis Scroll Container Utility */
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* --- MOBILE NAVIGATION OVERLAY --- */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(6, 6, 6, 0.98); /* Solid dark backdrop */
+  backdrop-filter: blur(15px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), clip-path 0.7s cubic-bezier(0.85, 0, 0.15, 1);
+  clip-path: circle(0px at 100% 0%);
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  clip-path: circle(2000px at 100% 0%);
+}
+
+.mobile-menu-link {
+  font-family: 'Lora', serif;
+  font-size: clamp(24px, 6vw, 36px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform: translateY(30px);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.mobile-menu-link:hover, .mobile-menu-link.active {
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+.mobile-menu-overlay.active .mobile-menu-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Hamburger button styling */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+  position: relative;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              background-color 0.3s ease;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+  background-color: var(--accent);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+  background-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex;
+  }
+}
+
+/* --- CUSTOM CURSOR INTERCEPT FIX --- */
+.cursor-dot,
+.cursor-ring {
+  pointer-events: none !important;
+}
+
+/* --- SPIN ANIMATIONS --- */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* INTERNATIONAL PHONE INPUT — Full dark-theme override                        */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Outer wrapper injected by react-phone-number-input */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  background-color: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0 16px 0 0;
+  height: 50px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.PhoneInput:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.PhoneInput--focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 10px rgba(255, 184, 0, 0.12);
+}
+
+/* The PhoneInputCountry wrapper — contains our custom trigger button */
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-right: 0;
+  border-right: none;
+  flex-shrink: 0;
+}
+
+/* Phone number text input */
+.PhoneInputInput {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--text-primary) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  height: 100%;
+  padding: 0 0 0 12px !important;
+}
+
+.PhoneInputInput::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* DARK COUNTRY SELECT — Custom dropdown component styles                      */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Root wrapper — positions the floating dropdown */
+.dark-country-select-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Trigger button: flag + chevron */
+.dark-country-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 0 14px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.2s ease, background 0.2s ease;
+  outline: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.dark-country-trigger:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dark-country-trigger:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Flag images inside trigger */
+.dark-country-trigger img,
+.dark-country-trigger svg[class*="PhoneInputCountryIconImg"],
+.dark-country-trigger .PhoneInputCountryIcon svg {
+  width: 22px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder when no flag available */
+.dark-country-flag-placeholder {
+  width: 22px;
+  height: 15px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  display: block;
+}
+
+/* Animated chevron arrow */
+.dark-country-arrow {
+  width: 10px;
+  height: 6px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.dark-country-trigger:hover .dark-country-arrow {
+  color: var(--accent);
+}
+
+.dark-country-arrow--open {
+  transform: rotate(180deg);
+  color: var(--accent) !important;
+}
+
+/* ─── Floating dropdown panel ─── */
+.dark-country-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 9999;
+  width: 300px;
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,184,0,0.08);
+  overflow: hidden;
+  animation: dropdown-appear 0.18s ease forwards;
+  pointer-events: auto;
+}
+
+@keyframes dropdown-appear {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Search bar ─── */
+.dark-country-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
+}
+
+.dark-country-search-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.dark-country-search {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: inherit;
+  caret-color: var(--accent);
+}
+
+.dark-country-search::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ─── Scrollable list ─── */
+.dark-country-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Custom dark scrollbar */
+.dark-country-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dark-country-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-country-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+.dark-country-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 184, 0, 0.4);
+}
+
+/* Firefox scrollbar */
+.dark-country-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* ─── Each country row ─── */
+.dark-country-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.dark-country-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-country-option--active {
+  background: rgba(255, 184, 0, 0.08) !important;
+}
+
+.dark-country-option--active .dark-country-option-name {
+  color: var(--accent);
+}
+
+.dark-country-option--active .dark-country-option-code {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+/* Flag cell */
+.dark-country-option-flag {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.dark-country-option-flag img,
+.dark-country-option-flag .PhoneInputCountryIcon svg {
+  width: 22px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Country name */
+.dark-country-option-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+/* Calling code badge */
+.dark-country-option-code {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+/* "No results" message */
+.dark-country-empty {
+  padding: 16px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}

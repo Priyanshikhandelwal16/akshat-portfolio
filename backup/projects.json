@@ -1,0 +1,137 @@
+[
+  {
+    "id": "w1",
+    "title": "Forest Vows",
+    "category": "weddings",
+    "videoUrl": "assets/videos/wedding-shoot-1.mp4",
+    "posterUrl": "assets/project4.png",
+    "tag": "Wedding Film",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "w2",
+    "title": "The Promise",
+    "category": "weddings",
+    "videoUrl": "assets/videos/wedding-shoot-2.mp4",
+    "posterUrl": "assets/wedding_poster.png",
+    "tag": "Wedding Short",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "w3",
+    "title": "Winter Embrace",
+    "category": "weddings",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-couple-kissing-under-the-snow-at-night-44330-large.mp4",
+    "posterUrl": "assets/wedding_poster.png",
+    "tag": "Wedding Narrative",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "b1",
+    "title": "Elegance Editorial",
+    "category": "brands",
+    "videoUrl": "assets/videos/tharva.mp4",
+    "posterUrl": "assets/fashion_editorial.png",
+    "tag": "Brand Campaign",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "b2",
+    "title": "Glass & Focus",
+    "category": "brands",
+    "videoUrl": "assets/videos/indus-01.mp4",
+    "posterUrl": "assets/project3.png",
+    "tag": "Product Shoot",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "b3",
+    "title": "Street Walkers",
+    "category": "brands",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-fashion-shoes-on-display-42037-large.mp4",
+    "posterUrl": "assets/fashion_editorial.png",
+    "tag": "Fashion Lookbook",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "r1",
+    "title": "Creator Hooks",
+    "category": "reels",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-young-man-recording-video-with-camera-on-tripod-41660-large.mp4",
+    "posterUrl": "assets/project3.png",
+    "tag": "Trending Reel",
+    "aspectRatio": "9/16"
+  },
+  {
+    "id": "r2",
+    "title": "Neon Pulse",
+    "category": "reels",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-man-dancing-under-neon-lights-42030-large.mp4",
+    "posterUrl": "assets/project2.png",
+    "tag": "Music Reel",
+    "aspectRatio": "9/16"
+  },
+  {
+    "id": "r3",
+    "title": "Storm Running",
+    "category": "reels",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-girl-running-in-the-rain-42026-large.mp4",
+    "posterUrl": "assets/project4.png",
+    "tag": "Cinematic Hook",
+    "aspectRatio": "9/16"
+  },
+  {
+    "id": "c1",
+    "title": "The Studio Wave",
+    "category": "commercials",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-creative-video-editor-at-workplace-41662-large.mp4",
+    "posterUrl": "assets/project6.png",
+    "tag": "Commercial Cut",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "c2",
+    "title": "Curve Chasing",
+    "category": "commercials",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-drone-shot-of-a-sports-car-driving-41846-large.mp4",
+    "posterUrl": "assets/project1.png",
+    "tag": "Car Commercial",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "c3",
+    "title": "Cyborg Assembly",
+    "category": "commercials",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-cinematic-scene-of-a-scifi-cyborg-soldier-41772-large.mp4",
+    "posterUrl": "assets/scifi_cyborg.png",
+    "tag": "Sci-Fi Promo",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "s1",
+    "title": "Microphone Waves",
+    "category": "social",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-recording-podcast-in-studio-41657-large.mp4",
+    "posterUrl": "assets/podcast_studio.png",
+    "tag": "Podcast Edit",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "s2",
+    "title": "Mechanical Type",
+    "category": "social",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-glowing-keyboard-41654-large.mp4",
+    "posterUrl": "assets/podcast_studio.png",
+    "tag": "Creator B-Roll",
+    "aspectRatio": "16/9"
+  },
+  {
+    "id": "s3",
+    "title": "Workspace Glow",
+    "category": "social",
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-creative-workspace-setup-with-glowing-lights-41659-large.mp4",
+    "posterUrl": "assets/project3.png",
+    "tag": "Creator Tour",
+    "aspectRatio": "16/9"
+  }
+]

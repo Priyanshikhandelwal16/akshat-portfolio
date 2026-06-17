@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Akshat Jain — Cinematic Video Editor & Content Creator</title>
+  <meta name="description" content="Akshat Jain is an award-winning creative video editor and content creator, crafting cinematic visual stories, luxury commercials, and viral trending reels.">
+  <meta name="keywords" content="Video Editor, Content Creator, Motion Design, Luxury Commercial, Wedding Editor, After Effects, Premiere Pro, Akshat Jain Portfolio">
+  <meta name="author" content="Akshat Jain">
+  <meta property="og:title" content="Akshat Jain — Cinematic Portfolio">
+  <meta property="og:description" content="Immersive, luxury creative-agency aesthetic video editing portfolio.">
+  <meta property="og:image" content="assets/portrait.png">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css?v=1.0.3">
+</head>
+<body>
+
+  <!-- Film Grain overlays -->
+  <div class="noise-overlay" id="noiseOverlay"></div>
+  <div class="scratches-overlay" id="scratchesOverlay"></div>
+
+  <!-- Custom Cinematic Cursor -->
+  <div class="cursor-dot" id="customCursorDot"></div>
+  <div class="cursor-ring" id="customCursorRing">
+    <div class="cursor-text">▶ PLAY</div>
+  </div>
+
+  <!-- Typographic Staggered Curtain Loader -->
+  <div class="loader-container" id="loaderContainer">
+    <div class="loader-panel panel-left"></div>
+    <div class="loader-panel panel-center"></div>
+    <div class="loader-panel panel-right"></div>
+    
+    <div class="loader-content">
+      <div class="loader-header-tag">AJ STUDIO // CREATIVE DIRECTION</div>
+      <div class="loader-word-wrapper">
+        <h2 class="loader-word" id="loaderWord">VISION</h2>
+      </div>
+      <div class="loader-footer-stats">
+        <div class="loader-stat-box">
+          <span class="loader-stat-label">TIMESCALE</span>
+          <span class="loader-stat-value" id="loaderTimecode">00:00:00:00</span>
+        </div>
+        <div class="loader-stat-box">
+          <span class="loader-stat-label">INDEX</span>
+          <span class="loader-stat-value" id="loaderPercentage">00%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header id="mainHeader">
+    <div class="logo magnetic-btn" id="headerLogo">AJ<span>.</span></div>
+    <nav class="nav-links" id="mainNavLinks">
+      <a href="#hero" class="nav-link magnetic-btn">Home</a>
+      <a href="#about" class="nav-link magnetic-btn">About</a>
+      <a href="#grading" class="nav-link magnetic-btn">Color Grade</a>
+      <a href="#projects" class="nav-link magnetic-btn">Projects</a>
+      <a href="#contact" class="nav-link magnetic-btn">Contact</a>
+    </nav>
+    <a href="#contact" class="cta-header-btn magnetic-btn" id="headerContactBtn">Collaborate</a>
+    
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Fullscreen Overlay -->
+  <div class="mobile-menu-overlay" id="mobileNavOverlay">
+    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Menu">✕</button>
+    <nav class="mobile-menu-nav">
+      <a href="#hero" class="mobile-menu-link">Home</a>
+      <a href="#about" class="mobile-menu-link">About</a>
+      <a href="#grading" class="mobile-menu-link">Color Grade</a>
+      <a href="#projects" class="mobile-menu-link">Projects</a>
+      <a href="#contact" class="mobile-menu-link">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Smooth Scroll Wrapper (Lenis) -->
+  <main id="smoothScrollWrapper">
+
+    <!-- 1. HOME SECTION -->
+    <section class="hero-section" id="hero">
+      <video class="hero-video-bg" autoplay loop muted playsinline id="heroVideoBg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-creative-video-editor-at-workplace-41662-large.mp4" type="video/mp4">
+      </video>
+      <div class="hero-gradient-overlay"></div>
+      
+      <!-- Removed: editor-interface-overlay and floating-timeline-nodes -->
+
+      <div class="hero-content">
+        <div class="hero-title-wrapper">
+          <h1 class="hero-title split-text" id="heroTitle">
+            AKSHAT JAIN
+          </h1>
+        </div>
+        
+        <div class="hero-subtitles">
+          <span>VIDEO EDITOR</span>
+          <span>•</span>
+          <span>CONTENT CREATOR</span>
+        </div>
+        
+        <p class="hero-description split-text" id="heroDesc">
+          Turning Footage Into Stories People Remember.
+        </p>
+        
+        <p class="hero-sub-description" id="heroSubDesc">
+          From wedding films to brand campaigns and viral reels, I create edits that capture attention and drive engagement.
+        </p>
+        
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn-primary magnetic-btn">View Projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT SECTION -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <span class="section-num">01 / TEAM</span>
+        <h2 class="section-title">THE EYE BEHIND THE TIMELINE</h2>
+        
+        <!-- Story details -->
+        <div class="about-grid">
+          <div class="about-left">
+            <img src="assets/akshat-image.jpeg" alt="Akshat Jain Portrait" class="about-portrait" id="aboutPortrait">
+            <div class="about-portrait-mask"></div>
+          </div>
+          
+          <div class="about-right">
+            <p class="about-text" id="aboutDynamicText">
+              Hi, I'm <span>Akshat Jain</span>, a passionate Video Editor and Content Creator focused on creating engaging visual stories that connect with audiences and help brands stand out.<br><br>
+              I believe editing is not just cutting clips—it's about <span>creating emotions</span>, increasing engagement, and turning ordinary footage into memorable content.
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats Counter Bar -->
+        <div class="stats-bar" id="statsBar">
+          <div class="stat-item">
+            <span class="stat-number" data-target="100" id="stat1">0</span>
+            <span class="stat-label">Projects Delivered</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="50" id="stat2">0</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="3" id="stat3">0</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="1.5" id="stat4">0</span>
+            <span class="stat-label">Million+ Views</span>
+          </div>
+        </div>
+
+        <!-- What I Do Grid -->
+        <div class="what-i-do-container">
+          <h3 class="about-sub-title">WHAT I DO</h3>
+          <div class="what-i-do-grid">
+            
+            <div class="what-card">
+              <span class="what-num">01</span>
+              <h4 class="what-title">Capture Attention</h4>
+              <p class="what-desc">Strong hooks and fast-paced editing that stop viewers from scrolling in the first three seconds.</p>
+            </div>
+
+            <div class="what-card">
+              <span class="what-num">02</span>
+              <h4 class="what-title">Increase Engagement</h4>
+              <p class="what-desc">Creative transitions, precise narrative pacing, and sound synthesis that keep audiences watching till the end.</p>
+            </div>
+
+            <div class="what-card">
+              <span class="what-num">03</span>
+              <h4 class="what-title">Build Brand Presence</h4>
+              <p class="what-desc">Professional aesthetic cuts, luxury color grading, and structured layouts that help brands and creators grow online.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Skills Floating Cards -->
+        <div class="skills-container">
+          <h3 class="about-sub-title">POST-PRODUCTION ARSENAL</h3>
+          <div class="skills-wrapper-floating">
+            
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="url(#ae-grad)" />
+                <text x="12" y="16" fill="#FFF" font-family="'Inter', sans-serif" font-size="10" font-weight="900" text-anchor="middle">Ae</text>
+                <defs>
+                  <linearGradient id="ae-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3b0066"/>
+                    <stop offset="1" stop-color="#FFB800"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>After Effects</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="url(#pr-grad)" />
+                <text x="12" y="16" fill="#FFF" font-family="'Inter', sans-serif" font-size="10" font-weight="900" text-anchor="middle">Pr</text>
+                <defs>
+                  <linearGradient id="pr-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#002244"/>
+                    <stop offset="1" stop-color="#FF6B35"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Premiere Pro</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="url(#cc-grad)"/>
+                <path d="M7 7L12 12L7 17V7Z" fill="#FFF"/>
+                <path d="M17 7L12 12L17 17V7Z" fill="#FFB800"/>
+                <defs>
+                  <linearGradient id="cc-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#252525"/>
+                    <stop offset="1" stop-color="#0f0f0f"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>CapCut PC</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 7a2 2 0 0 0-2.45-1.45L16 7V5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2l4.55 1.45A2 2 0 0 0 23 17V7z"/>
+              </svg>
+              <span>Content Creation</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="4 7 4 4 20 4 20 7"/>
+                <line x1="9" y1="20" x2="15" y2="20"/>
+                <line x1="12" y1="4" x2="12" y2="20"/>
+              </svg>
+              <span>Typography Reels</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="12" r="5" stroke="url(#ring-grad1)"/>
+                <circle cx="16" cy="12" r="5" stroke="url(#ring-grad2)"/>
+                <defs>
+                  <linearGradient id="ring-grad1" x1="3" y1="7" x2="13" y2="17">
+                    <stop stop-color="#FFB800"/>
+                    <stop offset="1" stop-color="#FF6B35"/>
+                  </linearGradient>
+                  <linearGradient id="ring-grad2" x1="11" y1="7" x2="21" y2="17">
+                    <stop stop-color="#FFB800"/>
+                    <stop offset="1" stop-color="#FF6B35"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span>Wedding Editing</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 22H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2z"/>
+                <path d="M0 7h24"/>
+                <path d="M12 2v5"/>
+                <path d="M6 2v5"/>
+                <path d="M18 2v5"/>
+                <path d="M6 2l3 5"/>
+                <path d="M12 2l3 5"/>
+                <path d="M18 2l3 5"/>
+              </svg>
+              <span>Brand Shoot Editing</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <span>Brand Commercial Editing</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+              </svg>
+              <span>Trending Reel Editing</span>
+            </div>
+
+            <div class="skill-floating-card">
+              <svg class="skill-icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+              <span>Motion Graphics</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COLOR GRADING SHOWCASE SECTION -->
+    <section class="grading-section" id="grading">
+      <div class="container">
+        <span class="section-num">02 / POST-PRODUCTION</span>
+        <h2 class="section-title split-text" id="gradingTitle">COLOR GRADING SHOWCASE</h2>
+        
+        <div class="grading-slider-container" id="gradingSliderContainer">
+          <!-- Before (RAW Log) Image -->
+          <div class="image-before">
+            <img src="assets/project5_before.png" alt="Before Color Grading">
+            <div class="label-badge badge-before">RAW LOG</div>
+          </div>
+          
+          <!-- After (Graded Cinematic) Image -->
+          <div class="image-after" id="gradedImageWrapper">
+            <img src="assets/project5_after.png" alt="After Color Grading">
+            <div class="label-badge badge-after">CINEMATIC GRADE</div>
+          </div>
+          
+          <!-- Interactive Slider Handle -->
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-line"></div>
+            <div class="handle-button">
+              <span>◀</span>
+              <span>▶</span>
+            </div>
+            <div class="handle-line"></div>
+          </div>
+        </div>
+        
+        <div class="grading-description">
+          <p>Drag the slider to see the difference between raw camera footage (LOG profile) and the final color-graded cinematic look.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PROJECTS SECTION (HEART OF THE SITE) -->
+    <section class="works-section" id="projects">
+      <div class="container">
+        <span class="section-num">03 / PORTFOLIO</span>
+        <h2 class="section-title split-text" id="projectsTitle">EDITORIAL PROJECTS</h2>
+        
+        <!-- Category Navigation Menu (Anchor links to blocks) -->
+        <div class="projects-categories-nav">
+          <a href="#weddings-block" class="category-nav-btn active magnetic-btn" data-target="weddings-block">Wedding Films</a>
+          <a href="#brands-block" class="category-nav-btn magnetic-btn" data-target="brands-block">Brand Shoots</a>
+          <a href="#reels-block" class="category-nav-btn magnetic-btn" data-target="reels-block">UGC</a>
+          <a href="#commercials-block" class="category-nav-btn magnetic-btn" data-target="commercials-block">Motion Graphics</a>
+          <!-- <a href="#social-block" class="category-nav-btn magnetic-btn" data-target="social-block">Social Content</a> -->
+        </div>
+
+        <!-- Dynamic Category Blocks are rendered here from projects.json -->
+
+      </div>
+    </section>
+
+    <!-- 4. CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+      <div class="contact-glow-bg"></div>
+      
+      <div class="container">
+        <div class="contact-layout">
+          
+          <!-- Left panel -->
+          <div class="contact-left">
+            <h2 class="contact-headline">LET'S CREATE CONTENT THAT <span>PEOPLE ACTUALLY WATCH.</span></h2>
+            
+            <p class="contact-sub-info">
+              Whether you're a creator, brand, or business, let's bring your vision to life through powerful editing that captures attention and drives retention.
+            </p>
+
+            <div class="contact-details-list">
+              <div class="contact-info-block">
+                <span class="contact-info-label">Direct Transmission</span>
+                <a href="mailto:hello@akshatjain.com" class="contact-info-link">hello@akshatjain.com</a>
+              </div>
+            </div>
+
+            <!-- Social handles -->
+            <div class="socials-list" id="socialsList">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right glass card form panel -->
+          <div class="contact-right">
+            <div class="contact-card-glass">
+              <form id="collaborationForm">
+                <div class="form-group">
+                  <input type="text" id="formName" class="form-input" placeholder=" " required>
+                  <label for="formName" class="form-label">YOUR NAME</label>
+                </div>
+                
+                <div class="form-group">
+                  <input type="email" id="formEmail" class="form-input" placeholder=" " required>
+                  <label for="formEmail" class="form-label">EMAIL ADDRESS</label>
+                </div>
+                
+                <div class="form-group">
+                  <textarea id="formMessage" class="form-input" rows="4" placeholder=" " required style="resize:none;"></textarea>
+                  <label for="formMessage" class="form-label">TELL ME ABOUT YOUR PROJECT</label>
+                </div>
+
+                <button type="submit" class="submit-btn">LET'S WORK TOGETHER</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="mainFooter">
+      <div class="footer-line-reveal"></div>
+      <div class="container footer-content">
+        <span>&copy; 2026 Akshat Jain. Crafted Frame by Frame.</span>
+        <span>Premium Creative Studio.</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Full-screen modal player for click video popup -->
+  <div class="fullscreen-video-overlay" id="fullscreenVideoOverlay">
+    <div class="fullscreen-video-container">
+      <button class="close-video-modal" id="closeVideoModal">[ CLOSE ESC ]</button>
+      <video class="fullscreen-video-player" id="fullscreenVideoPlayer" controls playsinline></video>
+    </div>
+  </div>
+
+  <!-- External JavaScript CDNs (GSAP, ScrollTrigger, Lenis, SplitType, EmailJS) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <!-- Main Script -->
+  <script src="app.js?v=1.0.3"></script>
+</body>
+</html>

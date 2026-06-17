@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+server/node_modules/
+client/node_modules/
+
+# Environment files
+.env
+server/.env
+client/.env
+
+# Upload temp files
+temp/
+server/temp/
+
+# Build files
+dist/
+client/dist/
+
+# Logs
+logs
+*.log

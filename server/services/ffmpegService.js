@@ -46,9 +46,12 @@ function getEncodeSettings(fileSizeBytes, duration = 0) {
   }
 
   if (MB < 50) {
-    // Small files — let CRF decide; still apply size cap if duration is long
-    return { crf: 26, videoBitrate: sizeCapKbps ? `${sizeCapKbps}k` : null, preset: 'veryfast' };
-  }
+  return {
+    crf: 28,
+    videoBitrate: '4000k',
+    preset: 'ultrafast'
+  };
+}
   if (MB < 150) {
     // Medium files — 4 Mbps cap or size cap, whichever is lower
     return { crf: 23, videoBitrate: minKbps(4000), preset: 'veryfast' };
@@ -108,7 +111,7 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
     const outputOptions = [
       `-preset ${preset}`,
       `-crf ${crf}`,
-      '-threads 0',
+      '-threads 2',
 
       '-map 0:v:0',
       '-map 0:a:0?',
@@ -122,7 +125,7 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
     const command = ffmpeg(inputPath)
       .videoCodec('libx264')
       .audioCodec('aac')
-      .audioBitrate('192k')
+      .audioBitrate('128k')
       .outputOptions(outputOptions)
       .output(outputPath);
 
@@ -186,6 +189,15 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
         console.error(`[FFmpeg] Transcode failed: ${err.message}`);
         reject(new Error(`FFmpeg transcode failed: ${err.message}`));
       })
+
+      .on('start', (cmd) => {
+  console.log('[FFmpeg CMD]', cmd);
+})
+
+.on('stderr', (line) => {
+  console.log('[FFmpeg STDERR]', line);
+})
+
       .run();
 
     resetStallTimer(); // arm immediately in case 'start' never fires

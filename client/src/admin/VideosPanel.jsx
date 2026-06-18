@@ -303,11 +303,11 @@ export default function VideosPanel({ triggerToast }) {
     if (evtSourceRef.current) {
       evtSourceRef.current.close();
     }
-
+     const API_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem('admin_token');
-    const evtSource = new EventSource(
-      `/api/videos/job-status/${encodeURIComponent(jobId)}?token=${encodeURIComponent(token)}`
-    );
+   const evtSource = new EventSource(
+  `${API_URL}/api/videos/job-status/${encodeURIComponent(jobId)}?token=${encodeURIComponent(token)}`
+);
     evtSourceRef.current = evtSource;
 
 

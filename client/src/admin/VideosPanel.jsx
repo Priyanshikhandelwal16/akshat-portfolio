@@ -310,45 +310,53 @@ export default function VideosPanel({ triggerToast }) {
     );
     evtSourceRef.current = evtSource;
 
-    evtSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        setUploadState(prev => ({
-          ...prev,
-          status: data.status,
-          progress: data.progress ?? prev?.progress ?? 0,
-          message: data.message || '',
-          error: data.error || null,
-          jobId,
-        }));
 
-        if (data.status === 'completed') {
-          evtSource.close();
-          evtSourceRef.current = null;
-          triggerToast('Video uploaded and optimized successfully!');
-          if (data.video) {
-            setVideos(prev => [...prev, data.video]);
-          }
-          // Auto-close modal after success
-          setTimeout(() => {
-            setModalOpen(false);
-            setUploadState(null);
-            setNewVideo({ title: '', description: '', tag: '', aspectRatio: '16/9', file: null });
-          }, 2000);
-        } else if (data.status === 'failed') {
-          evtSource.close();
-          evtSourceRef.current = null;
-        }
-      } catch (parseErr) {
-        console.error('SSE parse error:', parseErr);
+evtSource.onmessage = async (event) => {
+  const data = JSON.parse(event.data);
+
+  setUploadState(prev => ({
+    ...prev,
+    status: data.status,
+    progress: data.progress ?? prev?.progress ?? 0,
+    message: data.message || '',
+    error: data.error || null,
+    jobId,
+  }));
+
+  if (data.status === 'completed') {
+    evtSource.close();
+    evtSourceRef.current = null;
+
+    triggerToast('Video uploaded and optimized successfully!');
+
+    try {
+      const res = await axios.get(
+        `/api/videos/category/${selectedCatId}`
+      );
+
+      if (res.data.success) {
+        setVideos(
+          res.data.videos.sort(
+            (a, b) => (a.order || 0) - (b.order || 0)
+          )
+        );
       }
-    };
+    } catch (err) {
+      console.error('Failed to refresh videos:', err);
+    }
+
+    setTimeout(() => {
+      setModalOpen(false);
+      setUploadState(null);
+    }, 2000);
+  }
+};
 
     evtSource.onerror = () => {
       // Don't immediately show error — SSE may reconnect automatically
       console.warn('[SSE] Connection error — browser will attempt reconnect');
     };
-  }, [triggerToast]);
+  }, [triggerToast, selectedCatId]);
 
   // ── Retry failed job ───────────────────────────────────────────────────────
   const handleRetry = async () => {

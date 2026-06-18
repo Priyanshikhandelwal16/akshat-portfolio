@@ -29,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
 // Initialize server
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Connect to MongoDB Atlas / Local Database
 connectDB().then(() => {
   // Run startup seeding routine

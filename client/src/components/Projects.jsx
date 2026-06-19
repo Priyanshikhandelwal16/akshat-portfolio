@@ -173,7 +173,7 @@ export default function Projects({ categories, videos, onOpenVideo }) {
               </div>
             ) : (
               <div 
-                className={`projects-grid grid gap-8 ${
+                className={`projects-grid grid gap-4 sm:gap-8 ${
                   activeCategory.vertical 
                     ? 'grid-cols-2 md:grid-cols-4 vertical-cards justify-center' 
                     : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
@@ -238,7 +238,7 @@ function ProjectCard({ proj, onOpenVideo }) {
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => onOpenVideo(proj.videoUrl)}
+      onClick={() => onOpenVideo(proj.videoUrl, proj.aspectRatio)}
       className={`video-project-card project-card-animate group relative overflow-hidden rounded-lg bg-bg-secondary border border-white/[0.03] hover:border-accent/25 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(255,184,0,0.05)] transition-all duration-500 cursor-none select-none ${
         proj.aspectRatio === '9/16' ? 'aspect-vertical aspect-[9/16] w-full max-w-[320px] mx-auto' : 'aspect-video w-full'
       }`}

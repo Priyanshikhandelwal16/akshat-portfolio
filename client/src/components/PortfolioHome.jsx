@@ -86,7 +86,7 @@ export default function PortfolioHome() {
     videos: defaultFallbackVideos
   });
 
-  const [activeModalVideo, setActiveModalVideo] = useState(null);
+  const [activeModalVideo, setActiveModalVideo] = useState({ url: null, aspectRatio: '16/9' });
   
   const lenisRef = useRef(null);
   const mainWrapperRef = useRef(null);
@@ -129,37 +129,44 @@ export default function PortfolioHome() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const isDesktop = window.innerWidth >= 1025;
     let lenisInst;
-    try {
-      lenisInst = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
-      });
+    if (isDesktop) {
+      try {
+        lenisInst = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
 
-      lenisRef.current = lenisInst;
+        lenisRef.current = lenisInst;
 
-      lenisInst.on('scroll', ScrollTrigger.update);
+        lenisInst.on('scroll', ScrollTrigger.update);
 
-      gsap.ticker.add((time) => {
-        lenisInst.raf(time * 1000);
-      });
+        gsap.ticker.add((time) => {
+          lenisInst.raf(time * 1000);
+        });
 
-      gsap.ticker.lagSmoothing(0);
-      
-      // Stop scrolling while loader is running
+        gsap.ticker.lagSmoothing(0);
+        
+        // Stop scrolling while loader is running
+        if (loading) {
+          lenisInst.stop();
+          document.body.classList.add('lock-scroll');
+        }
+      } catch (error) {
+        console.error('Lenis smooth scroll failed to initialize:', error);
+      }
+    } else {
       if (loading) {
-        lenisInst.stop();
         document.body.classList.add('lock-scroll');
       }
-    } catch (error) {
-      console.error('Lenis smooth scroll failed to initialize:', error);
     }
 
     return () => {
@@ -192,18 +199,18 @@ export default function PortfolioHome() {
     }
   };
 
-  const handleOpenVideoModal = (videoUrl) => {
-    setActiveModalVideo(videoUrl);
+  const handleOpenVideoModal = (videoUrl, aspectRatio) => {
+    setActiveModalVideo({ url: videoUrl, aspectRatio: aspectRatio || '16/9' });
     if (lenisRef.current) lenisRef.current.stop();
   };
 
   const handleCloseVideoModal = () => {
-    setActiveModalVideo(null);
+    setActiveModalVideo({ url: null, aspectRatio: '16/9' });
     if (lenisRef.current) lenisRef.current.start();
   };
 
   return (
-    <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-hidden">
+    <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       {/* 1. Cinematic Film Overlays */}
       <NoiseOverlay />
       
@@ -242,7 +249,7 @@ export default function PortfolioHome() {
       </main>
 
       {/* 6. Fullscreen Modal Player popup */}
-      <VideoModal videoUrl={activeModalVideo} onClose={handleCloseVideoModal} />
+      <VideoModal videoUrl={activeModalVideo.url} aspectRatio={activeModalVideo.aspectRatio} onClose={handleCloseVideoModal} />
     </div>
   );
 }

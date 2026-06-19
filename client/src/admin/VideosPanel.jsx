@@ -671,9 +671,9 @@ evtSource.onmessage = async (event) => {
                     <Reorder.Item
                       key={vid._id}
                       value={vid}
-                      className="flex items-center justify-between p-4 rounded-xl border border-white/[0.04] bg-bg-secondary/80 hover:border-white/10 transition-colors cursor-grab active:cursor-grabbing select-none"
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 rounded-xl border border-white/[0.04] bg-bg-secondary/80 hover:border-white/10 transition-colors cursor-grab active:cursor-grabbing select-none gap-3 sm:gap-4"
                     >
-                      <div className="flex items-center gap-4 min-w-0">
+                      <div className="flex items-center gap-4 min-w-0 w-full sm:w-auto">
                         <div className="text-text-muted hover:text-accent p-1">
                           <Menu className="w-4 h-4" />
                         </div>
@@ -686,7 +686,7 @@ evtSource.onmessage = async (event) => {
                             </div>
                           )}
                         </div>
-                        <div className="flex flex-col gap-1 min-w-0">
+                        <div className="flex flex-col gap-1 min-w-0 flex-grow">
                           <span className="font-bold text-text-primary text-sm truncate">{vid.title}</span>
                           <div className="flex flex-wrap items-center gap-3 text-[10px] text-text-muted">
                             <span className="px-1.5 py-0.5 rounded bg-bg-primary border border-white/5 font-mono">{vid.aspectRatio}</span>
@@ -702,7 +702,7 @@ evtSource.onmessage = async (event) => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4 flex-shrink-0">
+                      <div className="flex items-center justify-end gap-3 sm:gap-4 flex-shrink-0 w-full sm:w-auto border-t border-white/5 sm:border-t-0 pt-2 sm:pt-0">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -738,8 +738,8 @@ evtSource.onmessage = async (event) => {
 
         {/* ── Upload Modal ──────────────────────────────────────────────────── */}
         {modalOpen && (
-          <div className="modal-backdrop fixed inset-0 bg-black/85 backdrop-blur-sm z-[1000] flex items-center justify-center p-6">
-            <div className="modal-container w-full max-w-[560px] bg-bg-secondary border border-white/5 rounded-xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative flex flex-col gap-5 max-h-[90vh] overflow-y-auto">
+          <div className="modal-backdrop fixed inset-0 bg-black/85 backdrop-blur-sm z-[1000] flex items-center justify-center p-4 sm:p-6">
+            <div className="modal-container w-full max-w-[560px] bg-bg-secondary border border-white/5 rounded-xl p-5 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative flex flex-col gap-5 max-h-[90vh] overflow-y-auto">
 
               <button
                 onClick={() => {
@@ -905,8 +905,8 @@ evtSource.onmessage = async (event) => {
 
         {/* ── Edit Modal ──────────────────────────────────────────────────── */}
         {editModalOpen && (
-          <div className="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-6">
-            <div className="modal-container w-full max-w-[500px] bg-bg-secondary border border-white/5 rounded-xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative">
+          <div className="modal-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm z-[1000] flex items-center justify-center p-4 sm:p-6">
+            <div className="modal-container w-full max-w-[500px] bg-bg-secondary border border-white/5 rounded-xl p-5 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative max-h-[90vh] overflow-y-auto">
 
               <button
                 onClick={() => setEditModalOpen(false)}

@@ -111,7 +111,7 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
     const outputOptions = [
       `-preset ${preset}`,
       `-crf ${crf}`,
-      '-threads 2',
+      '-threads 1',
 
       '-map 0:v:0',
       '-map 0:a:0?',
@@ -121,6 +121,8 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
       '-pix_fmt yuv420p',
       '-vf scale=trunc(iw/2)*2:trunc(ih/2)*2',
     ];
+
+    let lastPercent = -1;
 
     const command = ffmpeg(inputPath)
       .videoCodec('libx264')
@@ -167,7 +169,10 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
           const secs = (+parts[0]) * 3600 + (+parts[1]) * 60 + parseFloat(parts[2] || 0);
           percent = Math.min(99, Math.round((secs / duration) * 100));
         }
-        if (onProgress) onProgress(percent, `Compressing video... ${percent}%`);
+        if (percent !== lastPercent) {
+          lastPercent = percent;
+          if (onProgress) onProgress(percent, `Compressing video... ${percent}%`);
+        }
       })
       .on('end', () => {
         if (settled) return;
@@ -194,9 +199,11 @@ function transcodeVideo(inputPath, outputPath, sourceInfo, onProgress) {
   console.log('[FFmpeg CMD]', cmd);
 })
 
+/*
 .on('stderr', (line) => {
   console.log('[FFmpeg STDERR]', line);
 })
+*/
 
       .run();
 

@@ -6,7 +6,7 @@
 
 const { cloudinary } = require('../config/cloudinary');
 
-const CHUNK_SIZE = 6 * 1024 * 1024; // 6MB chunks for Cloudinary upload_large
+const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks for Cloudinary upload_large
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 2000;
 

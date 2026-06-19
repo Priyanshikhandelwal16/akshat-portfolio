@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
-export default function VideoModal({ videoUrl, onClose }) {
+export default function VideoModal({ videoUrl, aspectRatio, onClose }) {
   const overlayRef = useRef(null);
   const containerRef = useRef(null);
   const playerRef = useRef(null);
@@ -114,7 +114,11 @@ export default function VideoModal({ videoUrl, onClose }) {
     >
       <div 
         ref={containerRef}
-        className="fullscreen-video-container relative w-full max-w-[1280px] aspect-video bg-bg-darker rounded-lg overflow-hidden border border-white/5 flex items-center justify-center"
+        className={`fullscreen-video-container relative rounded-lg overflow-hidden border border-white/5 flex items-center justify-center bg-bg-darker transition-all ${
+          aspectRatio === '9/16' 
+            ? 'aspect-[9/16] max-h-[85vh] max-w-[420px] w-full' 
+            : 'aspect-video max-w-[1280px] w-full'
+        }`}
       >
         {/* Premium Close button */}
         <button 

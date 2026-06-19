@@ -48,13 +48,21 @@ export default function Header({ lenis }) {
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
+    const wasOpen = mobileMenuOpen;
+    
+    if (wasOpen) {
+      toggleMobileMenu();
+    }
 
     const target = document.querySelector(targetId);
-    if (target && lenis) {
+    if (target) {
       setTimeout(() => {
-        lenis.scrollTo(target);
-      }, mobileMenuOpen ? 350 : 0); // slight delay if mobile menu is open to let curtain close
+        if (lenis) {
+          lenis.scrollTo(target);
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, wasOpen ? 350 : 0); // slight delay if mobile menu is open to let curtain close
     }
   };
 
@@ -141,7 +149,14 @@ export default function Header({ lenis }) {
       </header>
 
       {/* Mobile Navigation Drawer Panel */}
-      <div className={`mobile-menu-overlay fixed inset-0 bg-bg-darker/98 z-[1000] flex items-center justify-center ${mobileMenuOpen ? 'active' : ''}`}>
+      <div 
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            toggleMobileMenu();
+          }
+        }}
+        className={`mobile-menu-overlay fixed inset-0 bg-bg-darker/98 z-[1000] flex items-center justify-center ${mobileMenuOpen ? 'active' : ''}`}
+      >
         <nav className="mobile-menu-nav flex flex-col items-center gap-8 text-center">
           <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} className="mobile-menu-link text-2xl font-display font-medium tracking-wide text-text-muted hover:text-text-primary transform translate-y-[30px] opacity-0 transition-colors">
             Home

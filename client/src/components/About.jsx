@@ -397,7 +397,7 @@ export default function About({ settings, skills }) {
           {(settings.stats || []).map((stat, idx) => (
             <div 
               key={idx} 
-              className="stat-item relative p-8 md:p-11 text-center bg-bg-primary border-r border-white/[0.06] last:border-r-0 hover:bg-accent/[0.03] transition-colors group"
+              className="stat-item relative p-4 sm:p-8 md:p-11 text-center bg-bg-primary border-r border-white/[0.06] last:border-r-0 hover:bg-accent/[0.03] transition-colors group"
             >
               {/* Gold line slide on hover */}
               <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-accent to-accent-secondary transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
@@ -460,7 +460,7 @@ export default function About({ settings, skills }) {
             {skills.map((skill) => (
               <div 
                 key={skill._id}
-                className="skill-card-item skill-floating-card px-6 py-4 rounded-xl border border-white/[0.08] bg-bg-secondary flex items-center gap-3 transition-all duration-300 font-sans text-xs md:text-sm font-semibold tracking-wider text-text-primary select-none opacity-0 transform-gpu"
+                className="skill-card-item skill-floating-card px-4 sm:px-6 py-3 sm:py-4 rounded-xl border border-white/[0.08] bg-bg-secondary flex items-center gap-3 transition-all duration-300 font-sans text-xs md:text-sm font-semibold tracking-wider text-text-primary select-none opacity-0 transform-gpu"
               >
                 {getSkillIcon(skill.iconType)}
                 <span>{skill.name}</span>

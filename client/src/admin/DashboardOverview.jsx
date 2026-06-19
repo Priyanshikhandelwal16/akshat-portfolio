@@ -78,13 +78,13 @@ export default function DashboardOverview({ onSwitchTab, triggerToast }) {
       </div>
 
       {/* Grid of stats cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {statCards.map((c, idx) => {
           const Icon = c.icon;
           return (
             <div 
               key={idx}
-              className={`relative overflow-hidden bg-bg-secondary border border-white/5 rounded-xl p-6 flex flex-col items-start select-none before:content-[""] before:absolute before:left-0 before:top-0 before:h-full before:w-[4px] ${c.color}`}
+              className={`relative overflow-hidden bg-bg-secondary border border-white/5 rounded-xl p-4 sm:p-6 flex flex-col items-start select-none before:content-[""] before:absolute before:left-0 before:top-0 before:h-full before:w-[4px] ${c.color}`}
             >
               <div className="w-8 h-8 rounded-full bg-white/[0.03] flex items-center justify-center text-text-muted mb-4">
                 <Icon className="w-4 h-4" />

@@ -29,24 +29,26 @@ export default function GradingShowcase() {
       }
     );
 
-    // Adapt image sizes when window resizes
-    const handleResize = () => {
-      cachedRectRef.current = null; // Clear cache
-      if (!sliderRef.current) return;
-      const width = sliderRef.current.offsetWidth;
-      const imgs = sliderRef.current.querySelectorAll('img');
-      imgs.forEach(img => {
-        img.style.width = `${width}px`;
-      });
-    };
+    // Resize observer to adapt images and layout dynamically
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const width = entry.contentRect.width;
+        if (width > 0) {
+          const imgs = entry.target.querySelectorAll('img');
+          imgs.forEach(img => {
+            img.style.width = `${width}px`;
+          });
+          cachedRectRef.current = entry.target.getBoundingClientRect();
+        }
+      }
+    });
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    ScrollTrigger.addEventListener('refresh', handleResize);
+    if (sliderRef.current) {
+      resizeObserver.observe(sliderRef.current);
+    }
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      ScrollTrigger.removeEventListener('refresh', handleResize);
+      resizeObserver.disconnect();
     };
   }, []);
 
@@ -78,7 +80,7 @@ export default function GradingShowcase() {
   const handleDrag = (e) => {
     if (!isDragging) return;
     if (e.touches && e.cancelable) {
-      // touch prevention
+      e.preventDefault(); // touch prevention
     }
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     handlePositionUpdate(clientX);
@@ -144,7 +146,7 @@ export default function GradingShowcase() {
               alt="Before Color Grading LOG" 
               className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
             />
-            <div className="label-badge badge-before font-mono text-[9px] font-bold tracking-[2px] text-text-muted absolute top-6 right-6 px-4 py-2 bg-bg-primary/75 border border-white/[0.08] rounded z-[4] select-none pointer-events-none">
+            <div className="label-badge badge-before font-mono text-[7px] xs:text-[8px] md:text-[9px] font-bold tracking-[1px] md:tracking-[2px] text-text-muted absolute top-3 md:top-6 right-3 md:right-6 px-2.5 py-1 md:px-4 md:py-2 bg-bg-primary/75 border border-white/[0.08] rounded z-[4] select-none pointer-events-none">
               RAW LOG
             </div>
           </div>
@@ -159,7 +161,7 @@ export default function GradingShowcase() {
               alt="After Cinematic Color Grading" 
               className="absolute top-0 left-0 h-full object-cover select-none pointer-events-none max-w-none"
             />
-            <div className="label-badge badge-after font-mono text-[9px] font-bold tracking-[2px] text-accent absolute top-6 left-6 px-4 py-2 bg-bg-primary/75 border border-white/[0.08] rounded z-[4] select-none pointer-events-none">
+            <div className="label-badge badge-after font-mono text-[7px] xs:text-[8px] md:text-[9px] font-bold tracking-[1px] md:tracking-[2px] text-accent absolute top-3 md:top-6 left-3 md:left-6 px-2.5 py-1 md:px-4 md:py-2 bg-bg-primary/75 border border-white/[0.08] rounded z-[4] select-none pointer-events-none">
               CINEMATIC GRADE
             </div>
           </div>

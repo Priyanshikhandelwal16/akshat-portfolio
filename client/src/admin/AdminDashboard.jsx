@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   const { logout, user } = useAdmin();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [toastMessage, setToastMessage] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Forcefully clean up any custom cursor and layout styles on admin mount
@@ -80,8 +81,37 @@ export default function AdminDashboard() {
         </div>
       )}
 
+      {/* Mobile Top Bar Header */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-bg-secondary border-b border-white/5 fixed top-0 left-0 w-full z-40">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 text-text-primary hover:text-accent transition-colors focus:outline-none"
+          aria-label="Toggle Sidebar"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {sidebarOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+        <div className="logo text-md font-mono font-bold tracking-[1px] text-text-primary">
+          AJ<span className="text-accent">.</span> CONTROL
+        </div>
+        <div className="w-10"></div> {/* Spacer for symmetry */}
+      </div>
+
+      {/* Sidebar mobile backdrop overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* 1. Sidebar Nav */}
-      <aside className="w-[260px] bg-bg-secondary border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-50">
+      <aside className={`w-[260px] bg-bg-secondary border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-50 transition-transform duration-300 md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-8 border-b border-white/5 flex flex-col gap-1">
           <div className="logo text-lg font-mono font-bold tracking-[2px] text-text-primary">
             AJ<span className="text-accent">.</span> CONTROL
@@ -98,7 +128,10 @@ export default function AdminDashboard() {
               return (
                 <li key={item.id}>
                   <button
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => {
+                      setActiveTab(item.id);
+                      setSidebarOpen(false);
+                    }}
                     className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-lg text-sm font-semibold transition-all hover:bg-white/[0.04] hover:text-text-primary ${
                       activeTab === item.id 
                         ? 'bg-accent/10 text-accent border-l-4 border-accent rounded-l-none pl-3' 
@@ -135,7 +168,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* 2. Main Content pane */}
-      <main className="flex-grow ml-[260px] p-8 md:p-12 min-h-screen bg-bg-primary overflow-y-auto">
+      <main className="flex-grow ml-0 md:ml-[260px] p-4 sm:p-8 md:p-12 pt-20 md:pt-12 min-h-screen bg-bg-primary overflow-y-auto">
         <div className="max-w-[1200px] mx-auto">
           {renderActivePanel()}
         </div>

@@ -339,7 +339,7 @@ export default function Contact({ settings }) {
 
           {/* Right glass form panel */}
           <div ref={cardRef} className="contact-right opacity-0 transform-gpu pointer-events-auto">
-            <div className="contact-card-glass bg-bg-secondary/45 border border-white/[0.08] backdrop-blur-[10px] rounded-xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div className="contact-card-glass bg-bg-secondary/45 border border-white/[0.08] backdrop-blur-[10px] rounded-xl p-5 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 
                 {status.text && (

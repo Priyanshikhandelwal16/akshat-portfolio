@@ -129,7 +129,7 @@ export default function ProjectsPanel({ triggerToast }) {
     <div className="flex flex-col gap-10">
       
       {/* Page Title header */}
-      <div className="flex justify-between items-center select-none">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 select-none">
         <div>
           <h2 className="font-mono text-2xl md:text-3xl font-extrabold uppercase">
             Portfolio Categories
